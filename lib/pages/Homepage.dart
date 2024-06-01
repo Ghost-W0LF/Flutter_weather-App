@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+
+
 import 'package:api_app/model/model.dart';
 import 'package:api_app/pages/service/service.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -27,7 +29,7 @@ class _homepageState extends State<homepage> {
    
     //get weather for the city
     try {
-      final weather = await _weatherService.getWeather('New York');
+      final weather = await _weatherService.getWeather("Dubai");
       setState(() {
         _weather = weather;
       });
@@ -58,7 +60,7 @@ class _homepageState extends State<homepage> {
             
             //cityname
             Text(
-              "${_weather?.city.name.toString() ?? " No city name......"}",
+              "${_weather?.name.toString() ?? " No city name......"}",
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white,
@@ -68,39 +70,39 @@ class _homepageState extends State<homepage> {
             //DAY and time
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(left: 150)),
+                Padding(padding: EdgeInsets.only(left: 50)),
                 Text(
-                  '${_weather?.list[7].dtTxt.day.toString() ?? "No time"}-',
+                  '${_weather?.dt.toInt() ?? "No time"}-',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   ),
                 ),
                 Text(
-                  '${_weather?.list[7].dtTxt.month.toString() ?? "No time"}-',
+                  '${_weather?.timezone.toDouble() ?? "No time"}-',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   ),
                 ),
-                Text(
-                  '${_weather?.list[7].dtTxt.year.toString() ?? "No time"}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: const Color.fromARGB(255, 181, 58, 58),
-                  ),
-                ),
-                Text(
-                  '  ${_weather?.list[7].sys.pod.name.toString() ?? "No time"}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
+                // Text(
+                //   '${_weather?.list[7].dtTxt.year.toString() ?? "No time"}',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //     color: const Color.fromARGB(255, 181, 58, 58),
+                //   ),
+                // ),
+                // Text(
+                //   '  ${_weather?.list[7].sys.pod.name.toString() ?? "No time"}',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //     color: Colors.white,
+                //   ),
+                // ),
               ],
             ),
 
-            //Image icon of weather
+           // Image icon of weather
             Container(
               
               width: 200,
@@ -110,12 +112,13 @@ class _homepageState extends State<homepage> {
                 color: Color.fromARGB(101, 255, 255, 255),
                 image: DecorationImage(
                   image: NetworkImage(
-                      'https://openweathermap.org/img/wn/${_weather?.list[2].oeather[0].icon}@4x.png'),
+                      'https://openweathermap.org/img/wn/${_weather?.weather[0].icon}@2x.png'),
                   fit: BoxFit.contain,
                 ),
               ),
             ),
-            Text('${_weather?.list[1].main.temp.toInt()} °C',
+            
+            Text('${_weather?.main.temp.toInt()} °C',
             style: TextStyle(
                 fontSize: 40,
                 color: Color.fromARGB(255, 220, 167, 55),
